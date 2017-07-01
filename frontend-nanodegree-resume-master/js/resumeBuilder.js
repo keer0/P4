@@ -1,6 +1,7 @@
 /*
 This is empty on purpose! Your code to build the resume will go here.
  */
+'use strict'
 var bio = {
 	name:"小丽",
 	role:"Web前端",
@@ -25,8 +26,7 @@ var bio = {
 		
 		$("#header").prepend(formattedName,formattedRole);
 		$("#header").append(formattedBiopic,formattedMsg);
-		$("#topContacts").append(formattedMobile,formattedEmail,formattedGithub,formattedLocation);	
-		$("#footerContacts").append(formattedMobile,formattedEmail,formattedGithub,formattedLocation);
+		$("#topContacts,#footerContacts").append(formattedMobile,formattedEmail,formattedGithub,formattedLocation);	
 		if(bio.skills.length > 0){
 			$("#header").append(HTMLskillsStart);
 			for(var i = 0; i < bio.skills.length; i++){
@@ -129,13 +129,15 @@ var education = {
 	display:function(){
 		education.schools.forEach(function(school){
 			$("#education").append(HTMLschoolStart);
-			var schoolName = HTMLschoolName.replace("%data%",school.name);
+			var schoolUrl = HTMLschoolName.replace("#",school.url);
+			var schoolName = schoolUrl.replace("%data%",school.name);
 			var schoolDegre = HTMLschoolDegree.replace("%data%",school.degree);
 			var formattedName = schoolName + schoolDegre;
 			var formattedLocation = HTMLschoolLocation.replace("%data%",school.location);
 			
 			var formattedDates= HTMLschoolDates.replace("%data%",school.dates);
 			var formattedUrl = HTMLonlineURL.replace("%data%",school.url);
+			
 			$(".education-entry:last").append(formattedName,formattedLocation,formattedDates);
 			if(school.majors.length > 0){
 				school.majors.forEach(function(major){
@@ -144,14 +146,16 @@ var education = {
 				})
 			}
 			$(".education-entry:last").append(formattedUrl);
+			
 		});	
 		education.onlineCourses.forEach(function(online){
 			$("#education").append(HTMLonlineClasses,HTMLschoolStart);
-			var onlineTitle = HTMLonlineTitle.replace("%data%",online.title);
+			var onlineUrl = HTMLonlineTitle.replace("#",online.url);
+			var onlineTitle = onlineUrl.replace("%data%",online.title);
 			var onlineSchool = HTMLonlineSchool.replace("%data%",online.school);
 			var formattedName = onlineTitle + onlineSchool;
 			var formattedDates= HTMLonlineDates.replace("%data%",online.dates);
-			var formattedUrl = HTMLonlineURL.replace("%data%",online.url);
+			var formattedUrl = HTMLonlineURL.replace("%data%",online.url);			
 			$(".education-entry:last").append(formattedName,formattedDates,formattedUrl);
 		});
 	}
